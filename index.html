@@ -41,7 +41,29 @@
 			integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs="
 			crossorigin="anonymous"
 		></script>
-		<script src="index.js">
+		<script>
+
+function fetchSimpsonQuotesJSON() {
+
+const url = `https://simpsons-quotes-api.herokuapp.com/quotes/`;
+axios.get(url)
+  .then(function(response) {
+	return response.data[0];
+  })
+  .then(function(quotes) {
+	console.log('data decoded from JSON:', quotes);
+
+	const quotesHtml = `
+	  <p><strong>${quotes.quote}</strong></p>
+		<p>${quotes.character}</p>
+	  <img src="${quotes.image}" />
+	`;
+	document.querySelector('#simpson-quote').innerHTML = quotesHtml;
+  });
+}
+
+fetchSimpsonQuotesJSON();
+
 		</script>
 	</body>
 </html>
